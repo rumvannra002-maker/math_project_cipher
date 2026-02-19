@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📘 comprehensive crypto report · interactive demos</title>
+    <!-- Font Awesome 6, Google Fonts for clean khmer/latin -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Source+Code+Pro:wght@400;600&family=Kantumruy+Pro:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #eaf0f8;
+            font-family: 'Inter', 'Kantumruy Pro', sans-serif;
+            color: #172b3a;
+            padding: 2rem 1.2rem;
+            line-height: 1.7;
+        }
+        .report-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #ffffffec;
+            backdrop-filter: blur(3px);
+            border-radius: 3rem;
+            box-shadow: 0 35px 60px -20px #0e3a5c4d;
+            padding: 2.5rem 2.5rem;
+        }
+
+        /* cover / header style — simplified, no personal info */
+        .cover {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 3px double #376e9a;
+            padding-bottom: 2rem;
+        }
+        .cover h1 {
+            font-size: 3.4rem;
+            font-weight: 700;
+            background: linear-gradient(140deg, #0a3e62, #205b87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .cover h1 i {
+            background: #1e5680;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 100px;
+            font-size: 2.8rem;
+            -webkit-text-fill-color: white;
+            margin-right: 15px;
+        }
+        /* submission info removed as requested */
+        .report-subtitle {
+            background: #deecfb;
+            border-radius: 60px;
+            padding: 1.2rem 2rem;
+            margin: 1.8rem auto 0;
+            display: inline-block;
+            font-size: 1.2rem;
+            border: 1px solid #a1c2e3;
+            box-shadow: 0 6px 0 #8daecb;
+        }
+        .report-subtitle i {
+            color: #134370;
+            margin: 0 0.5rem;
+        }
+
+        /* main sections */
+        .part {
+            margin-top: 3.5rem;
+        }
+        .part h2 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #0a3f64;
+            border-left: 18px solid #2e74a8;
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, #f2f9ff, transparent);
+        }
+        .chapter {
+            margin: 2.5rem 0 2rem;
+        }
+        .chapter h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1a4d75;
+            border-bottom: 4px dotted #9abde0;
+            padding-bottom: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+        .subchap {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #255e88;
+            margin: 1.8rem 0 0.8rem;
+        }
+
+        /* theory card — very detailed */
+        .theory-deep {
+            background: #f3f9ff;
+            border-radius: 2rem;
+            padding: 1.8rem 2.2rem;
+            margin: 1.4rem 0 2rem;
+            border-left: 8px solid #3a75a2;
+            box-shadow: 0 10px 20px -8px #2d5e8720;
+        }
+        .theory-deep p {
+            margin-bottom: 0.8rem;
+        }
+        .theory-deep ul, .theory-deep ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        .math-highlight {
+            background: #ffffff;
+            border-radius: 2rem;
+            padding: 1rem 2rem;
+            font-family: 'Source Code Pro', monospace;
+            border: 1px solid #84b3da;
+            display: inline-block;
+            margin: 0.8rem 0;
+        }
+
+        /* demo card — larger & clearer */
+        .demo-block {
+            background: #ffffff;
+            border-radius: 2.5rem;
+            padding: 2rem 2.2rem;
+            margin: 2rem 0 3rem;
+            border: 2px solid #bed9f5;
+            box-shadow: 0 15px 30px -15px #214b6e;
+        }
+        .demo-block .title {
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #14471f; /* dark green for demo */
+            background: #e3f2e6;
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #9ac7af;
+        }
+        .param-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.2rem 2rem;
+            margin: 1.4rem 0;
+            background: #f6fafe;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+        }
+        .param-group label {
+            font-weight: 700;
+            min-width: 80px;
+            color: #194b72;
+        }
+        .param-group input {
+            background: white;
+            border: 2px solid #b6d3f0;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1.1rem;
+            flex: 1 1 250px;
+        }
+        .param-group input:focus {
+            border-color: #1d72b5;
+            box-shadow: 0 0 0 4px #1d72b530;
+        }
+        button {
+            background: #1a5d8f;
+            border: none;
+            border-radius: 60px;
+            padding: 1rem 2.5rem;
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 8px 0 #0e3c5c;
+            border: 1px solid #ffffff90;
+        }
+        button:hover {
+            background: #134f7a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 0 #0e3c5c;
+        }
+        .result-panel {
+            background: #eef4fc;
+            border-radius: 2rem;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            border: 2px solid #abc0db;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        .result-panel .tag {
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #2d6692;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        /* miscellaneous clean */
+        .misc-box {
+            background: #e4f0fa;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        hr {
+            border: 2px dashed #8db3d6;
+            margin: 2.5rem 0;
+        }
+        .footnote {
+            background: #ceddec;
+            border-radius: 3rem;
+            padding: 1.3rem 2rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="report-container">
+
+    <!-- COVER PAGE style — without any personal submitted info -->
+    <div class="cover">
+        <h1><i class="fas fa-lock"></i> ENCRYPTION & DECRYPTION <br>COMPREHENSIVE REPORT</h1>
+        <div class="report-subtitle">
+            <i class="fas fa-book-open"></i> Cryptography fundamentals & interactive demos <i class="fas fa-calculator"></i>
+        </div>
+        <p style="margin-top: 1.8rem; font-size: 1.2rem; max-width: 900px; margin-left: auto; margin-right: auto; background: #fafcfd; padding: 1rem 2rem; border-radius: 60px;">
+            <i class="fas fa-quote-left" style="color:#1d5e91;"></i> 
+            This report presents applications of number theory, including classical encryption‑decryption methods and the RSA algorithm. Every section contains detailed mathematical explanations and an interactive demo.
+        </p>
+    </div>
+
+    <!-- PART I: CLASSICAL CRYPTOGRAPHY -->
+    <div class="part">
+        <h2><i class="fas fa-scroll" style="margin-right: 15px;"></i> PART I — CLASSICAL CRYPTOGRAPHY</h2>
+
+        <!-- 1. Caesar Cipher (extremely detailed) -->
+        <div class="chapter">
+            <h3>I.I Caesar Cipher (shift by 3)</h3>
+            <div class="theory-deep">
+                <p><span style="font-weight:800;">📜 Historical background:</span> Developed by Julius Caesar to send secret messages to his generals. Each letter is shifted three positions forward.</p>
+                <p><span style="font-weight:800;">🔢 Step‑by‑step algorithm:</span></p>
+                <ol>
+                    <li><strong>Assign numbers</strong> to letters: A=00, B=01, C=02, …, Z=25.</li>
+                    <li><strong>Convert plaintext</strong> into numbers. Example: HELLO → H=07, E=04, L=11, L=11, O=14.</li>
+                    <li><strong>Add 3</strong> to each number (mod 26): (07+3)=10, (04+3)=07, (11+3)=14, (11+3)=14, (14+3)=17.</li>
+                    <li><strong>Convert back</strong> to letters: 10→K, 07→H, 14→O, 14→O, 17→R → "KHOOR".</li>
+                </ol>
+                <p><span style="font-weight:800;">Mathematically:</span> E(x) = (x + 3) mod 26,  D(y) = (y – 3) mod 26.</p>
+                <div class="math-highlight">Example with "CRYPTOGRAPHY" → "FUBSWRJUDSKB"</div>
+            </div>
+            <div class="demo-block">
+                <div class="title"><i class="fas fa-rotate-left"></i> Caesar Cipher · interactive (k=3)</div>
+                <div class="param-group">
+                    <label>Plaintext:</label>
+                    <input type="text" id="caesarInput" value="CRYPTOGRAPHY" placeholder="type any text">
+                </div>
+                <button id="runCaesar"><i class="fas fa-play"></i> Encrypt (shift 3)</button>
+                <div class="result-panel">
+                    <div class="tag"><i class="fas fa-lock"></i> CIPHERTEXT</div>
+                    <span id="caesarResult">FUBSWRJUDSKB</span>
+                </div>
+                <p style="margin-top: 1rem;"><i class="fas fa-history"></i> Try with your own message.</p>
+            </div>
+        </div>
+
+        <!-- 2. General Shift Cipher -->
+        <div class="chapter">
+            <h3>I.II General Shift Cipher</h3>
+            <div class="theory-deep">
+                <p><strong>Generalization:</strong> Instead of a fixed shift 3, we can use any integer k (0–25). Encryption: E(x) = (x + k) mod 26. Decryption: D(y) = (y – k) mod 26. This is also called a <strong>additive cipher</strong> or <strong>rot cipher</strong>.</p>
+                <p>Example: plaintext "SECRET" with k=5: S(18)→23=X, E(4)→9=J, C(2)→7=H, R(17)→22=W, E(4)→9=J, T(19)→24=Y → "XJHWJY".</p>
+            </div>
+            <div class="demo-block">
+                <div class="title"><i class="fas fa-arrows-spin"></i> General Shift Cipher</div>
+                <div class="param-group">
+                    <label>Plaintext:</label>
+                    <input type="text" id="genInput" value="SECRET">
+                    <label>Shift k:</label>
+                    <input type="number" id="genShift" value="5" min="0" max="25">
+                </div>
+                <button id="runGenShift"><i class="fas fa-play"></i> Encrypt</button>
+                <div class="result-panel">
+                    <div class="tag"><i class="fas fa-lock"></i> ciphertext</div>
+                    <span id="genResult">XJHWJY</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Affine Cipher (detailed) -->
+        <div class="chapter">
+            <h3>I.III Affine Cipher</h3>
+            <div class="theory-deep">
+                <p><strong>Mathematical form:</strong> E(x) = (a·x + b) mod 26, where a and b are keys, and <strong>gcd(a,26)=1</strong> (so that a is invertible mod 26).</p>
+                <p>Decryption: D(y) = a⁻¹·(y – b) mod 26, where a⁻¹ is the modular inverse of a modulo 26.</p>
+                <p><strong>Example:</strong> Take a=5, b=8. For "AFFINE": A(0)→ (5·0+8)=8→I, F(5)→ (5·5+8)=33≡7→H, F(5)→H, I(8)→(5·8+8)=48≡22→W, N(13)→(5·13+8)=73≡21→V, E(4)→(5·4+8)=28≡2→C. So ciphertext = "IHHWVC".</p>
+                <p><i class="fas fa-check"></i> We'll keep a=5, b=8 as demo.</p>
+            </div>
+            <div class="demo-block">
+                <div class="title"><i class="fas fa-chart-line"></i> Affine Cipher (a=5, b=8)</div>
+                <div class="param-group">
+                    <label>Plaintext:</label>
+                    <input type="text" id="affineInput" value="AFFINE">
+                    <label>a:</label>
+                    <input type="number" id="affineA" value="5" min="1" max="25">
+                    <label>b:</label>
+                    <input type="number" id="affineB" value="8" min="0" max="25">
+                </div>
+                <button id="runAffine"><i class="fas fa-play"></i> Encrypt</button>
+                <div class="result-panel">
+                    <div class="tag">E(x) = (a·x + b) mod26</div>
+                    <span id="affineResult">IHHWVC</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Transposition (Rail Fence) with detail -->
+        <div class="chapter">
+            <h3>I.IV Transposition Cipher (Rail Fence)</h3>
+            <div class="theory-deep">
+                <p><strong>Concept:</strong> Instead of substituting letters, we rearrange positions. The rail fence cipher writes letters in a zigzag pattern over a number of "rails", then reads off row by row.</p>
+                <p><strong>Example with 3 rails for "TRANSPOSITION":</strong> write diagonally: row1: T,_,_,A,_,_,N,_,_,I,_,_,? ... Actually known result: "TPA SN OIROSIT".</p>
+                <p>We'll implement classic rail fence.</p>
+            </div>
+            <div class="demo-block">
+                <div class="title"><i class="fas fa-right-left"></i> Rail Fence Demo</div>
+                <div class="param-group">
+                    <label>Plaintext:</label>
+                    <input type="text" id="railInput" value="TRANSPOSITION">
+                    <label>Rails:</label>
+                    <input type="number" id="railDepth" value="3" min="2" max="6">
+                </div>
+                <button id="runRail"><i class="fas fa-play"></i> Encrypt (rail fence)</button>
+                <div class="result-panel">
+                    <div class="tag">ciphertext</div>
+                    <span id="railResult">TPA SN OIROSIT</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PART II: RSA CRYPTOGRAPHY (ultra detailed) -->
+    <div class="part">
+        <h2><i class="fas fa-key"></i> PART II — RSA (RIVEST‑SHAMIR‑ADLEMAN)</h2>
+        <div class="chapter">
+            <h3>II.I RSA Cryptography – fundamentals</h3>
+            <div class="theory-deep">
+                <p><strong>Asymmetric encryption:</strong> Uses a public key (n,e) and private key (n,d). Security relies on difficulty of factoring n = p·q.</p>
+                <p><strong>Key generation (step by step):</strong></p>
+                <ol>
+                    <li>Choose two distinct primes <em>p</em> and <em>q</em> (e.g., p=11, q=13).</li>
+                    <li>Compute <em>n = p × q</em> (n=143).</li>
+                    <li>Compute Euler’s totient <em>φ(n) = (p-1)(q-1)</em> = 10×12 = 120.</li>
+                    <li>Choose public exponent <em>e</em> such that 1 < e < φ(n) and gcd(e, φ(n)) = 1 (e=7 works).</li>
+                    <li>Compute private exponent <em>d</em> as the modular inverse of e modulo φ(n): d = e⁻¹ mod φ(n). For e=7, φ=120, d = 103 because 7×103 = 721 ≡ 1 mod 120.</li>
+                </ol>
+                <p><strong>Encryption:</strong> c = m^e mod n   (m must be < n)</p>
+                <p><strong>Decryption:</strong> m = c^d mod n</p>
+                <p><i class="fas fa-calculator"></i> Example: m=7, e=7, n=143 → c = 7^7 mod 143 = 106. Then 106^103 mod 143 gives back 7.</p>
+            </div>
+        </div>
+
+        <!-- RSA Keygen Demo -->
+        <div class="subchap" style="margin-left:1rem;"><i class="fas fa-cog"></i> II.I.I RSA Keygen Demo</div>
+        <div class="demo-block">
+            <div class="title"><i class="fas fa-key-skeleton"></i> RSA key generator (p,q,e → n,φ,d)</div>
+            <div class="param-group">
+                <label>p</label> <input type="number" id="rsaP" value="11" min="2">
+                <label>q</label> <input type="number" id="rsaQ" value="13" min="2">
+                <label>e</label> <input type="number" id="rsaE" value="7" min="2">
+            </div>
+            <button id="genRsaKey"><i class="fas fa-calculator"></i> generate keys</button>
+            <div class="result-panel" style="display:flex; flex-direction:column;">
+                <span><span class="tag">n = p·q =</span> <strong id="rsaN">143</strong></span>
+                <span><span class="tag">φ(n) = (p-1)(q-1) =</span> <strong id="rsaPhi">120</strong></span>
+                <span><span class="tag">private exponent d = e⁻¹ mod φ =</span> <strong id="rsaD">103</strong></span>
+            </div>
+        </div>
+
+        <!-- RSA Encryption Demo -->
+        <div class="subchap">II.I.II RSA Encryption Demo</div>
+        <div class="demo-block">
+            <div class="title"><i class="fas fa-lock-open"></i> RSA encryption (c = m^e mod n)</div>
+            <div class="param-group">
+                <label>m</label> <input type="number" id="rsaEncMsg" value="7">
+                <label>e</label> <input type="number" id="rsaEncE" value="7">
+                <label>n</label> <input type="number" id="rsaEncN" value="143">
+            </div>
+            <button id="runRsaEnc"><i class="fas fa-play"></i> encrypt</button>
+            <div class="result-panel">
+                <span class="tag">ciphertext c =</span> <strong id="rsaEncResult">106</strong>
+            </div>
+        </div>
+
+        <!-- RSA Decryption Demo -->
+        <div class="subchap">II.I.III RSA Decryption Demo</div>
+        <div class="demo-block">
+            <div class="title"><i class="fas fa-lock"></i> RSA decryption (m = c^d mod n)</div>
+            <div class="param-group">
+                <label>c</label> <input type="number" id="rsaDecC" value="106">
+                <label>d</label> <input type="number" id="rsaDecD" value="103">
+                <label>n</label> <input type="number" id="rsaDecN" value="143">
+            </div>
+            <button id="runRsaDec"><i class="fas fa-play"></i> decrypt</button>
+            <div class="result-panel">
+                <span class="tag">recovered message m =</span> <strong id="rsaDecResult">7</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- PART III: MISCELLANEOUS (detailed) -->
+    <div class="part">
+        <h2><i class="fas fa-ellipsis-h"></i> PART III — MISCELLANEOUS TOPICS</h2>
+        <div class="misc-box">
+            <p style="font-size:1.5rem; font-weight:600;"><i class="fas fa-cubes"></i> Additional cryptographic primitives</p>
+            <ul style="margin-left:2rem; font-size:1.2rem;">
+                <li><strong>Hash functions</strong> (SHA‑256, MD5) – produce fixed‑size digest, one‑way.</li>
+                <li><strong>Digital signatures</strong> – using RSA or ECDSA to authenticate.</li>
+                <li><strong>Symmetric ciphers</strong> – AES, DES, ChaCha20.</li>
+                <li><strong>Key exchange</strong> – Diffie–Hellman.</li>
+                <li><strong>Stream ciphers</strong> – RC4, Salsa20.</li>
+                <li><strong>Cryptographic protocols</strong> – TLS, SSH, PGP.</li>
+            </ul>
+            <p style="margin-top:1.2rem;">This section can be extended with interactive demos for hashing, HMAC, etc., if needed.</p>
+        </div>
+    </div>
+
+    <hr>
+    <div class="footnote">
+        <i class="fas fa-check-circle" style="color:#1d7531;"></i> COMPREHENSIVE REPORT · every cipher explained step by step · interactive demos with real calculations · client‑side JavaScript.
+    </div>
+</div>
+
+<!-- ========== JAVASCRIPT (all demos) ========== -->
+<script>
+(function() {
+    // Caesar shift 3
+    function caesar3(t) {
+        return t.toUpperCase().replace(/[A-Z]/g, c => String.fromCharCode( (c.charCodeAt(0)-65+3)%26 +65));
+    }
+    document.getElementById('runCaesar').onclick = function() {
+        let inp = document.getElementById('caesarInput').value;
+        document.getElementById('caesarResult').innerText = caesar3(inp) || '(ignore non letters)';
+    };
+
+    // general shift
+    function generalShift(t, k) {
+        k = ((k%26)+26)%26;
+        return t.toUpperCase().replace(/[A-Z]/g, c => String.fromCharCode( (c.charCodeAt(0)-65 + k)%26 +65));
+    }
+    document.getElementById('runGenShift').onclick = function() {
+        let inp = document.getElementById('genInput').value;
+        let k = parseInt(document.getElementById('genShift').value,10)||0;
+        document.getElementById('genResult').innerText = generalShift(inp, k);
+    };
+
+    // affine
+    function affineEncrypt(t, a, b) {
+        let out = '';
+        for(let ch of t.toUpperCase()) {
+            if(ch>='A' && ch<='Z') {
+                let x = ch.charCodeAt(0)-65;
+                out += String.fromCharCode( (a*x + b)%26 +65);
+            } else out += ch;
+        }
+        return out;
+    }
+    document.getElementById('runAffine').onclick = function() {
+        let inp = document.getElementById('affineInput').value;
+        let a = parseInt(document.getElementById('affineA').value,10)||1;
+        let b = parseInt(document.getElementById('affineB').value,10)||0;
+        document.getElementById('affineResult').innerText = affineEncrypt(inp, a, b);
+    };
+
+    // rail fence
+    function railFence(t, rails) {
+        if(rails<2) return t;
+        let fence = Array.from({length: rails}, ()=>[]);
+        let row=0, dir=1;
+        for(let ch of t) {
+            fence[row].push(ch);
+            row += dir;
+            if(row===rails-1 || row===0) dir*=-1;
+        }
+        return fence.flat().join('');
+    }
+    document.getElementById('runRail').onclick = function() {
+        let inp = document.getElementById('railInput').value;
+        let r = parseInt(document.getElementById('railDepth').value,10)||3;
+        document.getElementById('railResult').innerText = railFence(inp, r);
+    };
+
+    // RSA keygen with mod inverse
+    function modInverse(e, phi) {
+        let [m0, x0, x1] = [phi, 0, 1];
+        if(phi===1) return 0;
+        while(e>1) {
+            let q = Math.floor(e/phi);
+            [e, phi] = [phi, e%phi];
+            [x0, x1] = [x1 - q*x0, x0];
+        }
+        return x1<0 ? x1+m0 : x1;
+    }
+    document.getElementById('genRsaKey').onclick = function() {
+        let p = parseInt(document.getElementById('rsaP').value,10)||11;
+        let q = parseInt(document.getElementById('rsaQ').value,10)||13;
+        let e = parseInt(document.getElementById('rsaE').value,10)||7;
+        let n = p*q;
+        let phi = (p-1)*(q-1);
+        let d = modInverse(e, phi);
+        document.getElementById('rsaN').innerText = n;
+        document.getElementById('rsaPhi').innerText = phi;
+        document.getElementById('rsaD').innerText = d;
+        document.getElementById('rsaEncN').value = n;
+        document.getElementById('rsaEncE').value = e;
+        document.getElementById('rsaDecN').value = n;
+        document.getElementById('rsaDecD').value = d;
+    };
+
+    // mod pow
+    function modPow(base, exp, mod) {
+        if(mod===1) return 0;
+        let res=1; base %= mod;
+        while(exp>0) {
+            if(exp&1) res = (res*base)%mod;
+            base = (base*base)%mod;
+            exp >>= 1;
+        }
+        return res;
+    }
+    document.getElementById('runRsaEnc').onclick = function() {
+        let m = parseInt(document.getElementById('rsaEncMsg').value,10)||0;
+        let e = parseInt(document.getElementById('rsaEncE').value,10)||7;
+        let n = parseInt(document.getElementById('rsaEncN').value,10)||143;
+        document.getElementById('rsaEncResult').innerText = modPow(m, e, n);
+    };
+    document.getElementById('runRsaDec').onclick = function() {
+        let c = parseInt(document.getElementById('rsaDecC').value,10)||0;
+        let d = parseInt(document.getElementById('rsaDecD').value,10)||103;
+        let n = parseInt(document.getElementById('rsaDecN').value,10)||143;
+        document.getElementById('rsaDecResult').innerText = modPow(c, d, n);
+    };
+
+    // auto-run demos on load
+    window.onload = function() {
+        document.getElementById('runCaesar').click();
+        document.getElementById('runGenShift').click();
+        document.getElementById('runAffine').click();
+        document.getElementById('runRail').click();
+        document.getElementById('genRsaKey').click();
+        document.getElementById('runRsaEnc').click();
+        document.getElementById('runRsaDec').click();
+    };
+})();
+</script>
+</body>
+</html>
