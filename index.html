@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>📘 comprehensive crypto report · interactive demos</title>
     <!-- Font Awesome 6, Google Fonts for clean khmer/latin -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -55,7 +55,6 @@
             -webkit-text-fill-color: white;
             margin-right: 15px;
         }
-        /* submission info removed as requested */
         .report-subtitle {
             background: #deecfb;
             border-radius: 60px;
@@ -140,7 +139,7 @@
         .demo-block .title {
             font-size: 1.9rem;
             font-weight: 600;
-            color: #14471f; /* dark green for demo */
+            color: #14471f;
             background: #e3f2e6;
             padding: 0.6rem 2rem;
             border-radius: 60px;
@@ -177,6 +176,7 @@
         .param-group input:focus {
             border-color: #1d72b5;
             box-shadow: 0 0 0 4px #1d72b530;
+            outline: none;
         }
         button {
             background: #1a5d8f;
@@ -208,6 +208,7 @@
             font-family: 'Source Code Pro', monospace;
             font-size: 1.5rem;
             font-weight: 500;
+            word-break: break-word;
         }
         .result-panel .tag {
             font-size: 1rem;
@@ -235,113 +236,315 @@
             text-align: center;
             font-size: 1.1rem;
         }
-        /* ============================= */
-/* 📱 RESPONSIVE DESIGN FIX */
-/* ============================= */
 
-@media (max-width: 1024px) {
+        /* ========== RESPONSIVE DESIGN FOR MOBILE ========== */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+            
+            .report-container {
+                padding: 1.5rem 1.2rem;
+                border-radius: 2rem;
+            }
+            
+            /* Cover section */
+            .cover h1 {
+                font-size: 2.2rem;
+                line-height: 1.3;
+            }
+            
+            .cover h1 i {
+                font-size: 2rem;
+                padding: 0.6rem 1rem;
+                margin-right: 8px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            
+            .report-subtitle {
+                font-size: 1rem;
+                padding: 1rem 1.2rem;
+                white-space: normal;
+                word-break: break-word;
+                line-height: 1.5;
+            }
+            
+            .cover p {
+                font-size: 1rem !important;
+                padding: 1rem !important;
+                margin-top: 1.2rem !important;
+            }
+            
+            /* Section headers */
+            .part h2 {
+                font-size: 1.8rem;
+                border-left-width: 10px;
+                padding-left: 0.8rem;
+            }
+            
+            .chapter h3 {
+                font-size: 1.6rem;
+            }
+            
+            .subchap {
+                font-size: 1.4rem;
+                margin: 1.2rem 0 0.6rem;
+            }
+            
+            /* Theory cards */
+            .theory-deep {
+                padding: 1.2rem 1rem;
+                border-left-width: 5px;
+                border-radius: 1.5rem;
+            }
+            
+            .theory-deep ul, 
+            .theory-deep ol {
+                margin-left: 1rem;
+                padding-left: 0.5rem;
+            }
+            
+            .theory-deep li {
+                margin-bottom: 0.5rem;
+            }
+            
+            .math-highlight {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+                word-break: break-word;
+                white-space: normal;
+                display: block;
+                border-radius: 1.5rem;
+            }
+            
+            /* Demo blocks */
+            .demo-block {
+                padding: 1.2rem 1rem;
+                border-radius: 1.8rem;
+                margin: 1.5rem 0 2rem;
+            }
+            
+            .demo-block .title {
+                font-size: 1.4rem;
+                padding: 0.6rem 1rem;
+                white-space: normal;
+                word-break: break-word;
+                line-height: 1.4;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .demo-block .title i {
+                font-size: 1.3rem;
+            }
+            
+            /* Parameter groups */
+            .param-group {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1rem;
+                gap: 0.8rem;
+                border-radius: 1.8rem;
+            }
+            
+            .param-group label {
+                min-width: auto;
+                font-size: 1rem;
+                margin-bottom: -0.3rem;
+            }
+            
+            .param-group input {
+                width: 100%;
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+                border-radius: 40px;
+            }
+            
+            /* Buttons */
+            button {
+                width: 100%;
+                padding: 0.9rem 1.5rem;
+                font-size: 1.1rem;
+                justify-content: center;
+                box-shadow: 0 6px 0 #0e3c5c;
+            }
+            
+            button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 0 #0e3c5c;
+            }
+            
+            button:active {
+                transform: translateY(0);
+                box-shadow: 0 4px 0 #0e3c5c;
+            }
+            
+            /* Result panels */
+            .result-panel {
+                padding: 1rem 1.2rem;
+                font-size: 1.2rem;
+                word-break: break-word;
+                overflow-x: auto;
+                border-radius: 1.5rem;
+            }
+            
+            .result-panel .tag {
+                font-size: 0.8rem;
+                margin-bottom: 0.2rem;
+            }
+            
+            /* For RSA keygen panel (flex layout) */
+            .result-panel[style*="flex"] {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 0.8rem;
+            }
+            
+            .result-panel span {
+                display: block;
+                width: 100%;
+                line-height: 1.6;
+            }
+            
+            /* Misc box */
+            .misc-box {
+                padding: 1.2rem;
+                border-radius: 1.5rem;
+            }
+            
+            .misc-box ul {
+                margin-left: 0.5rem !important;
+                padding-left: 1.2rem !important;
+                font-size: 1rem !important;
+            }
+            
+            .misc-box li {
+                margin-bottom: 0.5rem;
+            }
+            
+            .footnote {
+                padding: 1rem;
+                font-size: 0.9rem;
+                line-height: 1.5;
+                border-radius: 2rem;
+            }
+            
+            hr {
+                margin: 1.8rem 0;
+            }
+        }
 
-    .report-container {
-        padding: 2rem 1.5rem;
-        border-radius: 2rem;
-    }
+        /* Extra small devices (phones under 480px) */
+        @media screen and (max-width: 480px) {
+            .cover h1 {
+                font-size: 1.8rem;
+            }
+            
+            .cover h1 i {
+                font-size: 1.5rem;
+                padding: 0.5rem 0.8rem;
+                margin-right: 5px;
+            }
+            
+            .part h2 {
+                font-size: 1.5rem;
+                border-left-width: 8px;
+            }
+            
+            .chapter h3 {
+                font-size: 1.4rem;
+            }
+            
+            .subchap {
+                font-size: 1.2rem;
+            }
+            
+            .demo-block .title {
+                font-size: 1.2rem;
+                gap: 0.5rem;
+            }
+            
+            .result-panel {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+            }
+            
+            .param-group input {
+                font-size: 0.95rem;
+            }
+            
+            button {
+                font-size: 1rem;
+                padding: 0.8rem 1.2rem;
+            }
+        }
 
-    .cover h1 {
-        font-size: 2.4rem;
-    }
+        /* Fix for landscape mode on phones */
+        @media screen and (max-height: 600px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+            
+            .param-group {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .param-group label {
+                width: auto;
+                min-width: 60px;
+            }
+            
+            .param-group input {
+                width: auto;
+                flex: 1 1 150px;
+            }
+            
+            button {
+                width: auto;
+                min-width: 200px;
+            }
+            
+            .cover h1 {
+                font-size: 2rem;
+            }
+        }
 
-    .part h2 {
-        font-size: 1.8rem;
-    }
+        /* Improve touch targets on mobile */
+        @media (hover: none) and (pointer: coarse) {
+            button, 
+            input,
+            .param-group label {
+                cursor: default;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            button:active {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 0 #0e3c5c;
+            }
+            
+            input {
+                font-size: 16px !important; /* Prevents zoom on iOS */
+            }
+        }
 
-    .chapter h3 {
-        font-size: 1.5rem;
-    }
+        /* Ensure text doesn't overflow */
+        .theory-deep p,
+        .theory-deep li,
+        .misc-box p,
+        .misc-box li {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
 
-    .subchap {
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 768px) {
-
-    body {
-        padding: 1rem 0.5rem;
-    }
-
-    .report-container {
-        padding: 1.2rem;
-        border-radius: 1.2rem;
-    }
-
-    .cover h1 {
-        font-size: 1.8rem;
-        line-height: 1.3;
-    }
-
-    .report-subtitle {
-        font-size: 0.95rem;
-        padding: 0.8rem 1rem;
-    }
-
-    .part h2 {
-        font-size: 1.4rem;
-        border-left: 8px solid #2e74a8;
-        padding-left: 0.8rem;
-    }
-
-    .chapter h3 {
-        font-size: 1.2rem;
-    }
-
-    .subchap {
-        font-size: 1.1rem;
-    }
-
-    .theory-deep {
-        padding: 1rem;
-        border-radius: 1rem;
-    }
-
-    .demo-block {
-        padding: 1rem;
-        border-radius: 1rem;
-    }
-
-    .param-group {
-        flex-direction: column;
-        align-items: stretch;
-        border-radius: 1rem;
-        padding: 1rem;
-    }
-
-    .param-group input {
-        width: 100%;
-        font-size: 1rem;
-    }
-
-    button {
-        width: 100%;
-        justify-content: center;
-        font-size: 1rem;
-        padding: 0.8rem 1rem;
-    }
-
-    .result-panel {
-        font-size: 1rem;
-        padding: 1rem;
-    }
-
-    .misc-box {
-        padding: 1rem;
-        border-radius: 1rem;
-    }
-
-    .footnote {
-        font-size: 0.9rem;
-        padding: 1rem;
-    }
-}
+        /* Better spacing for stacked elements */
+        .param-group > *:last-child {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -683,5 +886,4 @@
 })();
 </script>
 </body>
-
 </html>
